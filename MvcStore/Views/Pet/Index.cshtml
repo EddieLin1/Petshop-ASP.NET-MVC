@@ -1,0 +1,75 @@
+@model IEnumerable<MvcStore.Models.Pet>
+@{double a = 0.0;}
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Your Shopping Cart</h1>
+
+<p>
+     <form asp-action="ShopView">
+    <input type="submit" value="Shop For Pets" class="btn btn-primary" /> 
+
+    </form>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                Total Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Desc)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </th>
+            <th>
+                @(item.Quantity * item.Price)
+                
+                @{a += item.Quantity * item.Price;}
+            </th>
+            <td>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+    
+</table>
+
+<tr>Your Session Total: $@a</tr>
