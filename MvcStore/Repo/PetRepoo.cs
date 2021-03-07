@@ -7,7 +7,7 @@ using MvcStore.Models;
 
 namespace MvcStore.Repo
 {
-    public class PetRepo
+    public class PetRepoo
     {
         public IEnumerable<Pet> GetAllPets(){
             return PetDataSource();

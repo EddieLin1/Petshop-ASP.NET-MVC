@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MvcStore.Data;
+using MvcStore.Repo;
+using MvcStore.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace MvcStore
@@ -28,6 +30,9 @@ namespace MvcStore
             services.AddControllersWithViews();
             services.AddDbContext<MvcStoreContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("MvcStoreContext")));
+            services.AddDbContext<StoreDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("StoreDBContext")));
+            services.AddScoped<IPetRepository, PetRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

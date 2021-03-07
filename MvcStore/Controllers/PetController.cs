@@ -8,21 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using MvcStore.Data;
 using MvcStore.Models;
 using MvcStore.Repo;
+using MvcStore.Interface;
 
 namespace MvcStore.Controllers
 {
     public class PetController : Controller
     {
         private readonly MvcStoreContext _context;
+        private readonly IPetRepository _PetRepo;
 
-        public PetController(MvcStoreContext context)
+        public PetController(MvcStoreContext context, IPetRepository petrepo)
         {
             _context = context;
+            _PetRepo = petrepo;
         }
-        private readonly PetRepo _PetRepo = new PetRepo();
+       // private readonly PetRepoo _PetRepo = new PetRepoo();
         public IActionResult ShopView()
         {
-            var data = _PetRepo.GetAllPets();
+            var data = _PetRepo.GetAllPetsAsync();
  
             return View(data);
         } 
@@ -56,7 +59,7 @@ namespace MvcStore.Controllers
         public IActionResult Create(int id) //this page is not showing and i am not sure why
         {
             
-            var data = _PetRepo.GetPet(id);
+            var data = _PetRepo.GetPetByIdAsync(id);
 
             return View(data);
 
@@ -78,9 +81,9 @@ namespace MvcStore.Controllers
             } 
             else
             {
-                var pet = _PetRepo.GetPet(id);
-                pet.add_Quantity(Quantity - 1);
-                _context.Pet.Add(pet);
+                var pet = _PetRepo.GetPetByIdAsync(id);
+               // pet.add_Quantity(Quantity - 1);
+               // _context.Pet.Add(pet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             } 
