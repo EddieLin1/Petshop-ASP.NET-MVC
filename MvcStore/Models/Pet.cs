@@ -2,11 +2,11 @@ namespace MvcStore.Models
 {
     public class Pet
     {
-        public int Id {get; set;}
+        public int PetId {get; set;}
         public string Name {get; set;}
         public double Price {get; set;}
-        public string Desc {get; set;}
-        public int Quantity {get; private set;}
+        public string Description {get; set;}
+      /*  public int Quantity {get; private set;}
 
         public Pet()
         {
@@ -19,6 +19,6 @@ namespace MvcStore.Models
         public void sub_Quantity(int x)
         {
             this.Quantity -= x;
-        } 
+        } */
     }
 }

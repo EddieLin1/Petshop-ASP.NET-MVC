@@ -10,7 +10,7 @@ namespace MvcStore.Interface
 {
     public interface IPetRepository
     {
-        Task<IEnumerable<PetRepo>> GetAllPetsAsync();
-        Task<PetRepo> GetPetByIdAsync(int id);
+        Task<IEnumerable<Pet>> GetAllPetsAsync();
+        Task<Pet> GetPetByIdAsync(int id);
     }
 }

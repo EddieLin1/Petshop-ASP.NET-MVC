@@ -1,10 +1,14 @@
+
+
 namespace MvcStore.Models
 {
     public class ShoppingCart
     {
         public int ItemId {get; set;}
-        public int ItemType {get; set;}
+        public string ItemType {get; set;}
         public int Quantity {get; set;}
+        
+        public virtual Pet Pets {get; set;}
         public ShoppingCart()
         {
             this.Quantity = 1;

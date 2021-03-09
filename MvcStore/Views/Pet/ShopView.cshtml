@@ -32,11 +32,11 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Desc)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             
             <td>
-                <form asp-action="Create" asp-route-id= "@item.Id">
+                <form asp-action="Create" asp-route-id= "@item.PetId">
                     <input type="submit" value="Add To Cart" class="btn btn-primary" /> 
                 </form>
             </td>

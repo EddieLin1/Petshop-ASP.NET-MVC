@@ -17,7 +17,7 @@ namespace MvcStore
             : base(options)
         {
         }
-        public DbSet<PetRepo> PetRepo { get; set; }
+        public DbSet<Pet> PetRepo { get; set; }
         public DbSet<ShoppingCart> ShoppingCart {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,8 +31,8 @@ namespace MvcStore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-            modelBuilder.Entity<PetRepo>()
-                .HasKey(p => p.ItemType);
+            modelBuilder.Entity<Pet>()
+                .HasKey(p => p.PetId);
                 
             modelBuilder.Entity<ShoppingCart>()
                 .HasKey(s => s.ItemId);

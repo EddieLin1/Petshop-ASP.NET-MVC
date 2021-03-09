@@ -15,11 +15,11 @@ namespace MvcStore.Repo
         {
             _context = context;
         }
-        public async Task<IEnumerable<PetRepo>> GetAllPetsAsync()
+        public async Task<IEnumerable<Pet>> GetAllPetsAsync()
         {
             return await _context.PetRepo.ToListAsync();
         }
-        public async Task<PetRepo> GetPetByIdAsync(int id)
+        public async Task<Pet> GetPetByIdAsync(int id)
         {
             return await _context.PetRepo.FindAsync(id);
         }

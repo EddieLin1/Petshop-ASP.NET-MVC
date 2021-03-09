@@ -9,17 +9,18 @@ using MvcStore.Data;
 using MvcStore.Models;
 using MvcStore.Repo;
 using MvcStore.Interface;
+using System.Dynamic;
 
 namespace MvcStore.Controllers
 {
     public class PetController : Controller
     {
-        private readonly MvcStoreContext _context;
+        private readonly IShoppingCart _Cart;
         private readonly IPetRepository _PetRepo;
 
-        public PetController(MvcStoreContext context, IPetRepository petrepo)
+        public PetController(IShoppingCart Cart, IPetRepository petrepo)
         {
-            _context = context;
+            _Cart = Cart;
             _PetRepo = petrepo;
         }
        // private readonly PetRepoo _PetRepo = new PetRepoo();
@@ -34,10 +35,14 @@ namespace MvcStore.Controllers
         // GET: Pet
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pet.ToListAsync());
+         //   dynamic models = new ExpandoObject();
+         //   models.ShoppingCart = _Cart.GetAllCartItemsAsync();
+            var data =  await _Cart.GetAllCartItemsAsync();
+            return View(data);
         }
 
         // GET: Pet/Details/5
+        /*
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,8 +50,8 @@ namespace MvcStore.Controllers
                 return NotFound();
             }
 
-            var pet = await _context.Pet
-                .FirstOrDefaultAsync(m => m.Id == id);
+           // var pet = await _context.Pet
+                .FirstOrDefaultAsync(m => m.PetId == id);
             if (pet == null)
             {
                 return NotFound();
@@ -75,7 +80,7 @@ namespace MvcStore.Controllers
             if (_context.Pet.Find(id) != null)
             {
                var pet = _context.Pet.Find(id); 
-               pet.add_Quantity(Quantity);
+              // pet.add_Quantity(Quantity);
                await _context.SaveChangesAsync();
                return RedirectToAction(nameof(Index));
             } 
@@ -112,7 +117,7 @@ namespace MvcStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Desc")] Pet pet)
         {
-            if (id != pet.Id)
+            if (id != pet.PetId)
             {
                 return NotFound();
             }
@@ -126,7 +131,7 @@ namespace MvcStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PetExists(pet.Id))
+                    if (!PetExists(pet.PetId))
                     {
                         return NotFound();
                     }
@@ -149,7 +154,7 @@ namespace MvcStore.Controllers
             }
 
             var pet = await _context.Pet
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.PetId == id);
             if (pet == null)
             {
                 return NotFound();
@@ -165,8 +170,8 @@ namespace MvcStore.Controllers
         {
             
                var pet = _context.Pet.Find(id); 
-               pet.sub_Quantity(Quantity);
-               if (pet.Quantity == 0)
+             //  pet.sub_Quantity(Quantity);
+             //  if (pet.Quantity == 0)
                {
                    _context.Pet.Remove(pet);
                }
@@ -177,7 +182,7 @@ namespace MvcStore.Controllers
 
         private bool PetExists(int id)
         {
-            return _context.Pet.Any(e => e.Id == id);
-        }
+            return _context.Pet.Any(e => e.PetId == id);
+        } */
     }
 }
